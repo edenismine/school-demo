@@ -1,11 +1,14 @@
 package com.tormenteddan.schooldemo.configuration
 
+import com.tormenteddan.schooldemo.domain.Admin
 import com.tormenteddan.schooldemo.domain.Grade
 import com.tormenteddan.schooldemo.domain.Group
 import com.tormenteddan.schooldemo.domain.Teacher
 import com.tormenteddan.schooldemo.repository.GradeRepository
 import com.tormenteddan.schooldemo.repository.GroupRepository
 import com.tormenteddan.schooldemo.repository.TeacherRepository
+import com.tormenteddan.schooldemo.repository.UserRepository
+import com.tormenteddan.schooldemo.services.UserService
 import org.springframework.boot.CommandLineRunner
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
@@ -131,23 +134,33 @@ class InitializeDB {
     @Bean
     fun init(gradeRepository: GradeRepository,
              groupRepository: GroupRepository,
-             teacherRepository: TeacherRepository
+             teacherRepository: TeacherRepository,
+             userRepository: UserRepository,
+             userService: UserService
     ): CommandLineRunner {
         return CommandLineRunner {
+            userRepository.deleteAll()
             gradeRepository.deleteAll()
             groupRepository.deleteAll()
             teacherRepository.deleteAll()
             for (i in 1..6) {
+                val grade = gradeRepository.save(Grade(i))
                 val (name1, last1) = teachers.pop()
-                teacherRepository.save(Teacher(name1, last1,
-                        groupRepository.save(Group("${i}A", gradeRepository.save(Grade(i))))))
+                val teacher1 = teacherRepository.save(Teacher(name1, last1,
+                        groupRepository.save(Group("${i}A", grade))))
                 val (name2, last2) = teachers.pop()
-                teacherRepository.save(Teacher(name2, last2,
-                        groupRepository.save(Group("${i}B", gradeRepository.save(Grade(i))))))
+                val teacher2 = teacherRepository.save(Teacher(name2, last2,
+                        groupRepository.save(Group("${i}B", grade))))
                 val (name3, last3) = teachers.pop()
-                teacherRepository.save(Teacher(name3, last3,
-                        groupRepository.save(Group("${i}C", gradeRepository.save(Grade(i))))))
+                val teacher3 = teacherRepository.save(Teacher(name3, last3,
+                        groupRepository.save(Group("${i}C", grade))))
+                userService.createUser(teacher1)
+                userService.createUser(teacher2)
+                userService.createUser(teacher3)
             }
+            val admin = Admin()
+            userService.createUser(admin)
+            println(admin)
         }
     }
 }

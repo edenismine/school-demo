@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+>
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="/css/login.css" th:href="@{/css/login.css}"/>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <title>Login Panel</title>
+</head>
+
+<body>
+<div class="wrapper" sec:authorize="!isAuthenticated()">
+    <div class="login-form-title">
+        <i style="font-size: 100px" class="material-icons primary-cyan">local_library</i>
+        <p class="school-name primary-blue">HYPOTHETICAL ELEMENTARY</p>
+    </div>
+    <form class="login-form" role="form" th:action="@{/login}" method="post">
+        <label for="username">
+            <i class="material-icons primary-gray">face</i>
+            ID
+        </label>
+        <input type="text" name="username" id="username" required placeholder="Student/Teacher ID">
+        <label for="password">
+            <i class="material-icons primary-gray">https</i>
+            Password
+        </label>
+        <input type="password" name="password" id="password" required placeholder="Type your password"/>
+        <input class="btn" type="submit" value="LOG IN"/>
+        <p th:if="${error.isPresent()}">The email or password you have entered is invalid, try again.</p>
+    </form>
+</div>
+<div th:fragment="logout" class="logout" sec:authorize="isAuthenticated()">
+    Logged in user: <span sec:authentication="name"></span> |
+    Roles: <span sec:authentication="principal.authorities"></span>
+    <div>
+        <form action="#" th:action="@{/logout}" method="post">
+            <input type="submit" value="Logout"/>
+        </form>
+    </div>
+</div>
+</body>
+
+</html>

@@ -1,0 +1,71 @@
+@import url('https://fonts.googleapis.com/css?family=Bowlby+One+SC|Roboto+Slab')
+
+$phone: 640px
+$tablet: 768px
+$desktop: 1024px
+
+$primary-gray: rgba(80, 81, 79, 1)
+$primary-red: rgba(242, 95, 92, 1)
+$primary-yellow: rgba(255, 224, 102, 1)
+$primary-blue: rgba(36, 123, 160, 1)
+$primary-cyan: rgba(112, 193, 179, 1)
+
+$color-valid: rgba(199, 240, 189, 1)
+$color-invalid: rgba(254, 147, 140, 1)
+
+@mixin font_title($default: cursive)
+  font-family: 'Bowlby One SC', $default
+
+@mixin font_body($default: serif)
+  font-family: 'Roboto Slab', $default
+
+@mixin button_bold($background: $primary-blue, $h: $primary-cyan, $a: $primary-gray)
+  font-size: 20px
+  margin: 10px 0
+  padding: 10px
+  color: white
+  border: none
+  background-color: $background
+  border-radius: 5px
+  @include font_title
+  &:hover
+    background-color: $h
+  &:active
+    background-color: $a
+
+.primary-gray
+  color: $primary-gray
+
+.primary-red
+  color: $primary-red
+
+.primary-yellow
+  color: $primary-yellow
+
+.primary-blue
+  color: $primary-blue
+
+.primary-cyan
+  color: $primary-cyan
+
+h1, h2, h3, h4, h5, h6
+  font-weight: normal
+  @include font_title
+
+p, div, body
+  @include font_body
+
+.material-icons.md-18
+  font-size: 18px
+
+.material-icons.md-24
+  font-size: 24px
+
+.material-icons.md-36
+  font-size: 36px
+
+.material-icons.md-48
+  font-size: 48px
+
+.material-icons.md-60
+  font-size: 60px

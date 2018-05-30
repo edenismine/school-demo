@@ -1,0 +1,52 @@
+@import url("https://fonts.googleapis.com/css?family=Bowlby+One+SC|Roboto+Slab");
+
+.primary-gray {
+    color: #50514f;
+}
+
+.primary-red {
+    color: #f25f5c;
+}
+
+.primary-yellow {
+    color: #ffe066;
+}
+
+.primary-blue {
+    color: #247ba0;
+}
+
+.primary-cyan {
+    color: #70c1b3;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-weight: normal;
+    font-family: "Bowlby One SC", cursive;
+}
+
+p, div, body {
+    font-family: "Roboto Slab", serif;
+}
+
+.material-icons.md-18 {
+    font-size: 18px;
+}
+
+.material-icons.md-24 {
+    font-size: 24px;
+}
+
+.material-icons.md-36 {
+    font-size: 36px;
+}
+
+.material-icons.md-48 {
+    font-size: 48px;
+}
+
+.material-icons.md-60 {
+    font-size: 60px;
+}
+
+/*# sourceMappingURL=common.css.map */

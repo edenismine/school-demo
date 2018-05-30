@@ -1,0 +1,41 @@
+@import common
+
+.check
+  color: $color-valid
+
+.warning
+  color: $color-invalid
+
+.wrapper
+  padding-top: 20px
+  display: grid
+  @media(min-width: 640px)
+    grid-template-columns: 10% auto 10%
+  @media(min-width: 768px)
+    grid-template-columns: 20% auto 20%
+  @media(min-width: 1024px)
+    grid-template-columns: 1fr 1fr 1fr
+  .login-form-title
+    text-align: center
+    grid-row: 1
+    grid-column: 2
+  .login-form
+    grid-row: 2
+    grid-column: 2
+    display: grid
+    grid-gap: 10px
+    label, input
+      font-size: 20px
+      @include font_body
+    input
+      padding: 5px
+      &:required:invalid, &:focus:invalid
+        background: url(/static/img/invalid.png) no-repeat right top
+      &:required:valid
+        background: url(/static/img/valid.png) no-repeat right top
+    .btn
+      @include button_bold
+
+.school-name
+  @include font_title
+  font-size: 35px
