@@ -3,41 +3,30 @@
       xmlns="http://www.w3.org/1999/xhtml"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
 >
-
-<head>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" type="text/css" href="/css/login.css" th:href="@{/css/login.css}"/>
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <title>Login Panel</title>
-</head>
-
+<head th:replace="index :: head"></head>
 <body>
-<div class="wrapper" sec:authorize="!isAuthenticated()">
-    <div class="login-form-title">
-        <i style="font-size: 100px" class="material-icons primary-cyan">local_library</i>
-        <p class="school-name primary-blue">HYPOTHETICAL ELEMENTARY</p>
-    </div>
-    <form class="login-form" role="form" th:action="@{/login}" method="post">
+<div th:replace="index :: logo"></div>
+<div class="login-form-wrapper" sec:authorize="!isAuthenticated()">
+    <form class="login-form" th:action="@{/login}" method="post">
         <label for="username">
             <i class="material-icons primary-gray">face</i>
             ID
         </label>
-        <input type="text" name="username" id="username" required placeholder="Student/Teacher ID">
+        <input type="text" name="username" id="username" required placeholder="Student/Teacher ID" pattern="\d{8}">
         <label for="password">
             <i class="material-icons primary-gray">https</i>
             Password
         </label>
         <input type="password" name="password" id="password" required placeholder="Type your password"/>
         <input class="btn" type="submit" value="LOG IN"/>
-        <p th:if="${error.isPresent()}">The email or password you have entered is invalid, try again.</p>
+        <p th:if="${param.error != null}" class="error">Wrong user or password</p>
+        <p th:if="${param.logout != null}" class="success">You have logged out successfully</p>
     </form>
 </div>
-<div th:fragment="logout" class="logout" sec:authorize="isAuthenticated()">
-    Logged in user: <span sec:authentication="name"></span> |
-    Roles: <span sec:authentication="principal.authorities"></span>
-    <div>
-        <form action="#" th:action="@{/logout}" method="post">
-            <input type="submit" value="Logout"/>
+<div th:fragment="logout" sec:authorize="isAuthenticated()" class="logout">
+    <div style="text-align: center">
+        <form th:action="@{'/logout'}" method="post">
+            <input class="btn" type="submit" value="LOG OUT"/>
         </form>
     </div>
 </div>

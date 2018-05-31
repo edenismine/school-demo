@@ -1,39 +1,51 @@
 /*
-Error: Undefined mixin 'font_body'.
-        on line 24 of login.sass, in `font_body'
-        from line 24 of login.sass
+Error: An @import loop has been found:
+           dashboard.sass imports main.sass
+           main.sass imports login.sass
+           login.sass imports main.sass
+        on line 1 of login.sass
+        from line 2 of main.sass
+        from line 1 of dashboard.sass
 
-19:     display: grid
-20:     grid-gap: 10px
-21: 
-22: label, input
-23:   font-size: 20px
-24:   @include font_body
-25:   input
-26:     padding: 5px
-27:     &:required:invalid, &:focus:invalid
-28:       background: url(/img/invalid.png) no-repeat right top
-29:     &:required:valid
+1: @import main
+2: 
+3: .nav-bar
+4:   display: grid
+5:   .nav-button
+6:     @include button_bold
 
 Backtrace:
-login.sass:24:in `font_body'
-login.sass:24
-/var/lib/gems/2.5.0/gems/sass-3.5.6/lib/sass/tree/visitors/perform.rb:352:in `block in visit_mixin'
-/var/lib/gems/2.5.0/gems/sass-3.5.6/lib/sass/stack.rb:98:in `block in with_mixin'
-/var/lib/gems/2.5.0/gems/sass-3.5.6/lib/sass/stack.rb:135:in `with_frame'
-/var/lib/gems/2.5.0/gems/sass-3.5.6/lib/sass/stack.rb:98:in `with_mixin'
-/var/lib/gems/2.5.0/gems/sass-3.5.6/lib/sass/tree/visitors/perform.rb:350:in `visit_mixin'
+login.sass:1
+main.sass:2
+dashboard.sass:1
+/var/lib/gems/2.5.0/gems/sass-3.5.6/lib/sass/tree/visitors/perform.rb:574:in `handle_import_loop!'
+/var/lib/gems/2.5.0/gems/sass-3.5.6/lib/sass/tree/visitors/perform.rb:322:in `visit_import'
 /var/lib/gems/2.5.0/gems/sass-3.5.6/lib/sass/tree/visitors/base.rb:36:in `visit'
 /var/lib/gems/2.5.0/gems/sass-3.5.6/lib/sass/tree/visitors/perform.rb:162:in `block in visit'
 /var/lib/gems/2.5.0/gems/sass-3.5.6/lib/sass/stack.rb:79:in `block in with_base'
 /var/lib/gems/2.5.0/gems/sass-3.5.6/lib/sass/stack.rb:135:in `with_frame'
 /var/lib/gems/2.5.0/gems/sass-3.5.6/lib/sass/stack.rb:79:in `with_base'
 /var/lib/gems/2.5.0/gems/sass-3.5.6/lib/sass/tree/visitors/perform.rb:162:in `visit'
-/var/lib/gems/2.5.0/gems/sass-3.5.6/lib/sass/tree/visitors/perform.rb:444:in `block (2 levels) in visit_rule'
-/var/lib/gems/2.5.0/gems/sass-3.5.6/lib/sass/tree/visitors/perform.rb:444:in `map'
-/var/lib/gems/2.5.0/gems/sass-3.5.6/lib/sass/tree/visitors/perform.rb:444:in `block in visit_rule'
-/var/lib/gems/2.5.0/gems/sass-3.5.6/lib/sass/tree/visitors/perform.rb:183:in `with_environment'
-/var/lib/gems/2.5.0/gems/sass-3.5.6/lib/sass/tree/visitors/perform.rb:442:in `visit_rule'
+/var/lib/gems/2.5.0/gems/sass-3.5.6/lib/sass/tree/visitors/perform.rb:329:in `block (2 levels) in visit_import'
+/var/lib/gems/2.5.0/gems/sass-3.5.6/lib/sass/tree/visitors/perform.rb:329:in `map'
+/var/lib/gems/2.5.0/gems/sass-3.5.6/lib/sass/tree/visitors/perform.rb:329:in `block in visit_import'
+/var/lib/gems/2.5.0/gems/sass-3.5.6/lib/sass/stack.rb:88:in `block in with_import'
+/var/lib/gems/2.5.0/gems/sass-3.5.6/lib/sass/stack.rb:135:in `with_frame'
+/var/lib/gems/2.5.0/gems/sass-3.5.6/lib/sass/stack.rb:88:in `with_import'
+/var/lib/gems/2.5.0/gems/sass-3.5.6/lib/sass/tree/visitors/perform.rb:326:in `visit_import'
+/var/lib/gems/2.5.0/gems/sass-3.5.6/lib/sass/tree/visitors/base.rb:36:in `visit'
+/var/lib/gems/2.5.0/gems/sass-3.5.6/lib/sass/tree/visitors/perform.rb:162:in `block in visit'
+/var/lib/gems/2.5.0/gems/sass-3.5.6/lib/sass/stack.rb:79:in `block in with_base'
+/var/lib/gems/2.5.0/gems/sass-3.5.6/lib/sass/stack.rb:135:in `with_frame'
+/var/lib/gems/2.5.0/gems/sass-3.5.6/lib/sass/stack.rb:79:in `with_base'
+/var/lib/gems/2.5.0/gems/sass-3.5.6/lib/sass/tree/visitors/perform.rb:162:in `visit'
+/var/lib/gems/2.5.0/gems/sass-3.5.6/lib/sass/tree/visitors/perform.rb:329:in `block (2 levels) in visit_import'
+/var/lib/gems/2.5.0/gems/sass-3.5.6/lib/sass/tree/visitors/perform.rb:329:in `map'
+/var/lib/gems/2.5.0/gems/sass-3.5.6/lib/sass/tree/visitors/perform.rb:329:in `block in visit_import'
+/var/lib/gems/2.5.0/gems/sass-3.5.6/lib/sass/stack.rb:88:in `block in with_import'
+/var/lib/gems/2.5.0/gems/sass-3.5.6/lib/sass/stack.rb:135:in `with_frame'
+/var/lib/gems/2.5.0/gems/sass-3.5.6/lib/sass/stack.rb:88:in `with_import'
+/var/lib/gems/2.5.0/gems/sass-3.5.6/lib/sass/tree/visitors/perform.rb:326:in `visit_import'
 /var/lib/gems/2.5.0/gems/sass-3.5.6/lib/sass/tree/visitors/base.rb:36:in `visit'
 /var/lib/gems/2.5.0/gems/sass-3.5.6/lib/sass/tree/visitors/perform.rb:162:in `block in visit'
 /var/lib/gems/2.5.0/gems/sass-3.5.6/lib/sass/stack.rb:79:in `block in with_base'
@@ -71,4 +83,4 @@ login.sass:24
 body:before {
   white-space: pre;
   font-family: monospace;
-  content: "Error: Undefined mixin 'font_body'.\A         on line 24 of login.sass, in `font_body'\A         from line 24 of login.sass\A \A 19:     display: grid\A 20:     grid-gap: 10px\A 21: \A 22: label, input\A 23:   font-size: 20px\A 24:   @include font_body\A 25:   input\A 26:     padding: 5px\A 27:     &:required:invalid, &:focus:invalid\A 28:       background: url(/img/invalid.png) no-repeat right top\A 29:     &:required:valid"; }
+  content: "Error: An @import loop has been found:\A            dashboard.sass imports main.sass\A            main.sass imports login.sass\A            login.sass imports main.sass\A         on line 1 of login.sass\A         from line 2 of main.sass\A         from line 1 of dashboard.sass\A \A 1: @import main\A 2: \A 3: .nav-bar\A 4:   display: grid\A 5:   .nav-button\A 6:     @include button_bold"; }

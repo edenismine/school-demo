@@ -1,12 +1,6 @@
 @import common
 
-.check
-  color: $color-valid
-
-.warning
-  color: $color-invalid
-
-.wrapper
+.login-form-wrapper
   padding-top: 20px
   display: grid
   @media(min-width: 640px)
@@ -30,12 +24,36 @@
     input
       padding: 5px
       &:required:invalid, &:focus:invalid
-        background: url(/static/img/invalid.png) no-repeat right top
+        background: url(/img/invalid.png) no-repeat right center
       &:required:valid
-        background: url(/static/img/valid.png) no-repeat right top
+        background: url(/img/valid.png) no-repeat right center
     .btn
       @include button_bold
 
-.school-name
-  @include font_title
-  font-size: 35px
+form
+  label, input
+    font-size: 20px
+    border-radius: 5px
+    @include font_body
+    input
+      padding: 5px
+      &:required:invalid, &:focus:invalid
+        background: url(/img/invalid.png) no-repeat right center
+      &:required:valid
+        background: url(/img/valid.png) no-repeat right center
+    .btn
+      @include button_bold
+
+.logout
+  bottom: 0
+  position: fixed
+  text-align: center
+  width: 100%
+  label
+    color: $primary-gray
+  .btn
+    background-color: $primary-red
+    &:hover
+      background-color: $color-invalid
+    &:active
+      background-color: $color-valid

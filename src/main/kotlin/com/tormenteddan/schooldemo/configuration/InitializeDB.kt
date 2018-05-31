@@ -157,6 +157,9 @@ class InitializeDB {
                 userService.createUser(teacher1)
                 userService.createUser(teacher2)
                 userService.createUser(teacher3)
+                println(teacher1)
+                println(teacher2)
+                println(teacher3)
             }
             val admin = Admin()
             userService.createUser(admin)

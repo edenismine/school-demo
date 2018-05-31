@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+>
+<head th:replace="index :: head"></head>
+<body style="text-align: center">
+<div th:replace="index :: logo"></div>
+<div style="display: grid; text-align: center">
+    <h1 class="primary-gray" th:text="${'Students of group ' + group}"></h1>
+    <ul>
+        <li th:each="student : ${students}" th:text="${student.firstName + ' ' + student.lastName}"></li>
+    </ul>
+    <div th:replace="login :: logout"></div>
+</div>
+</body>
+</html>

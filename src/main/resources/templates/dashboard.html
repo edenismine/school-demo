@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+>
+<head th:replace="index :: head"></head>
+<body style="text-align: center">
+<div th:replace="index :: logo"></div>
+<div class="dashboard">
+    <!--Consultar lista de alumnos por grupo-->
+    <!--Agregar profesor-->
+    <!--Consultar lista de profesores-->
+    <!--Ligar profesor con un grupo-->
+    <!--Graduar alumno-->
+    <!--Ascender de grado a un alumno-->
+    <!--Inscribir Alumno-->
+    <!--Dar de baja Alumno-->
+    <div sec:authorize="hasAuthority('ADMIN')" id="studentsByGroupId">
+        <form th:action="@{/students}"
+              method="post"
+              style="text-align: center; display: grid;">
+            <label>
+                List the Students enrolled in a group
+                <input type="text" name="groupId" required pattern="[1-6][ABC]">
+            </label>
+            <input type="submit" value="Fetch" class="btn">
+        </form>
+    </div>
+    <div sec:authorize="hasAuthority('TEACHER')" id="getMyStudents">
+        <a th:href="@{'/groups/'+ ${group} +'/students'}"
+           class="btn" style="text-decoration: none">
+            My Students
+        </a>
+    </div>
+</div>
+<div th:replace="login :: logout"></div>
+</body>
+</html>
