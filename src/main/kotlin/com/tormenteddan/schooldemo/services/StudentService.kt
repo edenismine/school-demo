@@ -13,4 +13,5 @@ class StudentService(val repo: StudentRepository) {
     fun findByGroupId(id: String): List<Student> = repo.findByGroupId(id)
     fun findByFirstName(firstName: String): List<Student> = repo.findByFirstName(firstName)
     fun findByLastName(lastName: String): List<Student> = repo.findByLastName(lastName)
+    fun save(student: Student) : Student = repo.save(student)
 }

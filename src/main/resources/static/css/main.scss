@@ -1,0 +1,53 @@
+@import url('https://fonts.googleapis.com/css?family=Rubik|Fjalla+One');
+
+.title-font {
+  font-family: 'Fjalla One', sans-serif;
+}
+
+.body-font {
+  font-family: 'Rubik', sans-serif;
+}
+
+form {
+  input {
+    &:required:invalid, &:focus:invalid {
+      background: url(/img/invalid.png) no-repeat right center;
+    }
+    &:required:valid {
+      background: url(/img/valid.png) no-repeat right center;
+    }
+  }
+}
+html,
+body{
+  height: 100%;
+}
+#cover {
+  background: #222 url('/img/library.jpg') no-repeat center center;
+  background-size: cover;
+  color: white;
+  height: 100%;
+  text-align: center;
+  display: flex;
+  align-items: center;
+}
+
+#login-section{
+  background: #222 url('/img/work.jpg') no-repeat center center;
+  background-size: cover;
+  color: white;
+  height: 100%;
+  text-align: center;
+  display: flex;
+  align-items: center;
+}
+
+#cover-caption,
+#login-form{
+  width: 100%;
+}
+
+#table-container{
+  text-align: center;
+  padding: 20px;
+}

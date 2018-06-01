@@ -1,240 +1,43 @@
-@import url("https://fonts.googleapis.com/css?family=Bowlby+One+SC|Roboto+Slab");
-@import url("https://fonts.googleapis.com/css?family=Bowlby+One+SC|Roboto+Slab");
-.primary-gray {
-  color: #50514f; }
+@import url("https://fonts.googleapis.com/css?family=Rubik|Fjalla+One");
+.title-font {
+  font-family: 'Fjalla One', sans-serif; }
 
-.primary-red {
-  color: #f25f5c; }
+.body-font {
+  font-family: 'Rubik', sans-serif; }
 
-.primary-yellow {
-  color: #ffe066; }
+form input:required:invalid, form input:focus:invalid {
+  background: url(/img/invalid.png) no-repeat right center; }
+form input:required:valid {
+  background: url(/img/valid.png) no-repeat right center; }
 
-.primary-blue {
-  color: #247ba0; }
+html,
+body {
+  height: 100%; }
 
-.primary-cyan {
-  color: #70c1b3; }
-
-h1, h2, h3, h4, h5, h6 {
-  font-weight: normal;
-  font-family: "Bowlby One SC", cursive; }
-
-p, div, body {
-  font-family: "Roboto Slab", serif; }
-
-.material-icons.md-18 {
-  font-size: 18px; }
-
-.material-icons.md-24 {
-  font-size: 24px; }
-
-.material-icons.md-36 {
-  font-size: 36px; }
-
-.material-icons.md-48 {
-  font-size: 48px; }
-
-.material-icons.md-60 {
-  font-size: 60px; }
-
-.btn {
-  font-size: 20px;
-  margin: 10px 0;
-  padding: 10px;
+#cover {
+  background: #222 url("/img/library.jpg") no-repeat center center;
+  background-size: cover;
   color: white;
-  border: none;
-  background-color: #247ba0;
-  border-radius: 5px;
-  font-family: "Bowlby One SC", cursive; }
-  .btn:hover {
-    background-color: #70c1b3; }
-  .btn:active {
-    background-color: #50514f; }
-
-.success {
-  color: #70c1b3; }
-
-.warning {
-  color: #ffe066; }
-
-.error {
-  color: #f25f5c; }
-
-.school-name {
-  font-family: "Bowlby One SC", cursive;
-  font-size: 35px; }
-
-.login-form-wrapper {
-  padding-top: 20px;
-  display: grid; }
-@media(min-width: 640px) {
-  .login-form-wrapper {
-    grid-template-columns: 10% auto 10%; } }
-@media(min-width: 768px) {
-  .login-form-wrapper {
-    grid-template-columns: 20% auto 20%; } }
-@media(min-width: 1024px) {
-  .login-form-wrapper {
-    grid-template-columns: 1fr 1fr 1fr; } }
-  .login-form-wrapper .login-form-title {
-    text-align: center;
-    grid-row: 1;
-    grid-column: 2; }
-  .login-form-wrapper .login-form {
-    grid-row: 2;
-    grid-column: 2;
-    display: grid;
-    grid-gap: 10px; }
-    .login-form-wrapper .login-form label, .login-form-wrapper .login-form input {
-      font-size: 20px;
-      font-family: "Roboto Slab", serif; }
-    .login-form-wrapper .login-form input {
-      padding: 5px; }
-      .login-form-wrapper .login-form input:required:invalid, .login-form-wrapper .login-form input:focus:invalid {
-        background: url(/img/invalid.png) no-repeat right center; }
-      .login-form-wrapper .login-form input:required:valid {
-        background: url(/img/valid.png) no-repeat right center; }
-    .login-form-wrapper .login-form .btn {
-      font-size: 20px;
-      margin: 10px 0;
-      padding: 10px;
-      color: white;
-      border: none;
-      background-color: #247ba0;
-      border-radius: 5px;
-      font-family: "Bowlby One SC", cursive; }
-      .login-form-wrapper .login-form .btn:hover {
-        background-color: #70c1b3; }
-      .login-form-wrapper .login-form .btn:active {
-        background-color: #50514f; }
-
-form label, form input {
-  font-size: 20px;
-  border-radius: 5px;
-  font-family: "Roboto Slab", serif; }
-  form label input, form input input {
-    padding: 5px; }
-    form label input:required:invalid, form label input:focus:invalid, form input input:required:invalid, form input input:focus:invalid {
-      background: url(/img/invalid.png) no-repeat right center; }
-    form label input:required:valid, form input input:required:valid {
-      background: url(/img/valid.png) no-repeat right center; }
-  form label .btn, form input .btn {
-    font-size: 20px;
-    margin: 10px 0;
-    padding: 10px;
-    color: white;
-    border: none;
-    background-color: #247ba0;
-    border-radius: 5px;
-    font-family: "Bowlby One SC", cursive; }
-    form label .btn:hover, form input .btn:hover {
-      background-color: #70c1b3; }
-    form label .btn:active, form input .btn:active {
-      background-color: #50514f; }
-
-.logout {
-  bottom: 0;
-  position: fixed;
+  height: 100%;
   text-align: center;
-  width: 100%; }
-  .logout label {
-    color: #50514f; }
-  .logout .btn {
-    background-color: #f25f5c; }
-    .logout .btn:hover {
-      background-color: #fe938c; }
-    .logout .btn:active {
-      background-color: #c7f0bd; }
+  display: flex;
+  align-items: center; }
 
-.primary-gray {
-  color: #50514f; }
-
-.primary-red {
-  color: #f25f5c; }
-
-.primary-yellow {
-  color: #ffe066; }
-
-.primary-blue {
-  color: #247ba0; }
-
-.primary-cyan {
-  color: #70c1b3; }
-
-h1, h2, h3, h4, h5, h6 {
-  font-weight: normal;
-  font-family: "Bowlby One SC", cursive; }
-
-p, div, body {
-  font-family: "Roboto Slab", serif; }
-
-.material-icons.md-18 {
-  font-size: 18px; }
-
-.material-icons.md-24 {
-  font-size: 24px; }
-
-.material-icons.md-36 {
-  font-size: 36px; }
-
-.material-icons.md-48 {
-  font-size: 48px; }
-
-.material-icons.md-60 {
-  font-size: 60px; }
-
-.btn {
-  font-size: 20px;
-  margin: 10px 0;
-  padding: 10px;
+#login-section {
+  background: #222 url("/img/work.jpg") no-repeat center center;
+  background-size: cover;
   color: white;
-  border: none;
-  background-color: #247ba0;
-  border-radius: 5px;
-  font-family: "Bowlby One SC", cursive; }
-  .btn:hover {
-    background-color: #70c1b3; }
-  .btn:active {
-    background-color: #50514f; }
+  height: 100%;
+  text-align: center;
+  display: flex;
+  align-items: center; }
 
-.success {
-  color: #70c1b3; }
+#cover-caption,
+#login-form {
+  width: 100%; }
 
-.warning {
-  color: #ffe066; }
-
-.error {
-  color: #f25f5c; }
-
-.school-name {
-  font-family: "Bowlby One SC", cursive;
-  font-size: 35px; }
-
-.dashboard {
-  display: grid; }
-@media(min-width: 640px) {
-  .dashboard {
-    grid-template-columns: 10% auto 10%; } }
-@media(min-width: 768px) {
-  .dashboard {
-    grid-template-columns: 20% auto 20%; } }
-@media(min-width: 1024px) {
-  .dashboard {
-    grid-template-columns: 1fr 1fr 1fr; } }
-  .dashboard #getMyStudents, .dashboard #studentsByGroupId, .dashboard .nav-button, .dashboard .logout {
-    grid-column: 2; }
-  .dashboard .nav-button {
-    font-size: 20px;
-    margin: 10px 0;
-    padding: 10px;
-    color: white;
-    border: none;
-    background-color: #247ba0;
-    border-radius: 5px;
-    font-family: "Bowlby One SC", cursive; }
-    .dashboard .nav-button:hover {
-      background-color: #70c1b3; }
-    .dashboard .nav-button:active {
-      background-color: #50514f; }
+#table-container {
+  text-align: center;
+  padding: 20px; }
 
 /*# sourceMappingURL=main.css.map */

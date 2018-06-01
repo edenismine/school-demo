@@ -3,25 +3,71 @@
       xmlns="http://www.w3.org/1999/xhtml">
 <head th:fragment="head">
     <meta charset="UTF-8">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+            integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"
+            integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T"
+            crossorigin="anonymous"></script>
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
+          integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB"
+          crossorigin="anonymous">
+
     <link rel="stylesheet" th:href="@{/css/main.css}"/>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <title th:text="${title}">Title</title>
 </head>
-<body style="text-align: center">
-    <a th:href="@{/}" th:fragment="logo" style="text-decoration: none;">
-        <div style="text-align: center">
-            <i style="font-size: 100px" class="material-icons primary-cyan">local_library</i>
-            <p class="school-name primary-blue">HYPOTHETICAL ELEMENTARY</p>
+<body class="body-font">
+<section id="cover">
+    <div id="cover-caption">
+        <div class="container">
+            <h1 class="title-font">Welcome to Hypothetical Elementary</h1>
+            <p>All our students have the highest grades in the world. We coded them that way.</p>
+            <div th:fragment="login" sec:authorize="!isAuthenticated()">
+                <a th:href="@{/login}" role="button" class="btn btn-primary">Log in</a>
+            </div>
+            <div sec:authorize="isAuthenticated()" style="padding-top: 10px">
+                <a th:href="@{/dashboard}" role="button" class="btn btn-primary">Dashboard</a>
+            </div>
+            <div sec:authorize="isAuthenticated()" style="padding-top: 10px">
+                <form th:action="@{/logout}" method="post">
+                    <button class="btn btn-danger" type="submit">Log out</button>
+                </form>
+            </div>
+            <br/>
+            <a href="#nav-main" role="button" class="btn btn-outline-light btn-sm">&darr;</a>
         </div>
-    </a>
-    <form sec:authorize="!isAuthenticated()" th:action="@{/login}" method="get">
-        <input class="btn" type="submit" value="LOG IN" />
-    </form>
-    <div sec:authorize="isAuthenticated()">
-        <a th:href="@{/dashboard}"
-           class="btn" style="text-decoration: none">
-            DASHBOARD
-        </a>
     </div>
-    <div th:replace="login :: logout"></div>
+</section>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark" id="nav-main">
+    <a class="navbar-brand text-white title-font" th:href="@{/index}">
+        <i class="material-icons d-inline-block align-top text-white"
+           style="width: 30px; height: 30px; font-size: 25px">
+            local_library
+        </i>
+        Hypothetical Elementary
+    </a>
+    <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+            <a class="nav-link" th:href="@{/index}" style="text-align: center">
+                Home  <i class="material-icons text-white" style="font-size: 14px">home</i>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" th:href="@{/dashboard}" sec:authorize="isAuthenticated()" style="text-align: center">
+                Dashboard  <i class="material-icons text-white" style="font-size: 14px">dashboard</i>
+            </a>
+        </li>
+    </ul>
+    <form class="form-inline float-sm-right" th:action="@{/login}" method="get" sec:authorize="!isAuthenticated()">
+        <button class="btn btn-outline-success" type="submit">Log in</button>
+    </form>
+    <form class="form-inline pull-xs-right" th:action="@{/logout}" method="post" sec:authorize="isAuthenticated()">
+        <button class="btn btn-outline-danger" type="submit">Log out</button>
+    </form>
+</nav>
 </body>

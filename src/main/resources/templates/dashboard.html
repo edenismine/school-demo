@@ -5,9 +5,35 @@
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
 >
 <head th:replace="index :: head"></head>
-<body style="text-align: center">
-<div th:replace="index :: logo"></div>
-<div class="dashboard">
+<body class="body-font">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top" id="nav-main">
+    <a class="navbar-brand text-white title-font" th:href="@{/index}">
+        <i class="material-icons d-inline-block align-top text-white"
+           style="width: 30px; height: 30px; font-size: 25px">
+            local_library
+        </i>
+        Hypothetical Elementary
+    </a>
+    <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+            <a class="nav-link" th:href="@{/index}" style="text-align: center">
+                Home  <i class="material-icons text-white" style="font-size: 14px">home</i>
+            </a>
+        </li>
+        <li class="nav-item active">
+            <a class="nav-link" th:href="@{/dashboard}" sec:authorize="isAuthenticated()" style="text-align: center">
+                Dashboard  <i class="material-icons text-white" style="font-size: 14px">dashboard</i>
+            </a>
+        </li>
+    </ul>
+    <form class="form-inline float-sm-right" th:action="@{/login}" method="get" sec:authorize="!isAuthenticated()">
+        <button class="btn btn-outline-success" type="submit">Log in</button>
+    </form>
+    <form class="form-inline pull-xs-right" th:action="@{/logout}" method="post" sec:authorize="isAuthenticated()">
+        <button class="btn btn-outline-danger" type="submit">Log out</button>
+    </form>
+</nav>
+<div>
     <!--Consultar lista de alumnos por grupo-->
     <!--Agregar profesor-->
     <!--Consultar lista de profesores-->
@@ -18,22 +44,19 @@
     <!--Dar de baja Alumno-->
     <div sec:authorize="hasAuthority('ADMIN')" id="studentsByGroupId">
         <form th:action="@{/students}"
-              method="post"
-              style="text-align: center; display: grid;">
+              method="post">
             <label>
                 List the Students enrolled in a group
                 <input type="text" name="groupId" required pattern="[1-6][ABC]">
             </label>
-            <input type="submit" value="Fetch" class="btn">
+            <input type="submit" value="Fetch" >
         </form>
     </div>
     <div sec:authorize="hasAuthority('TEACHER')" id="getMyStudents">
-        <a th:href="@{'/groups/'+ ${group} +'/students'}"
-           class="btn" style="text-decoration: none">
+        <a th:href="@{'/groups/'+ ${group} +'/students'}">
             My Students
         </a>
     </div>
 </div>
-<div th:replace="login :: logout"></div>
 </body>
 </html>

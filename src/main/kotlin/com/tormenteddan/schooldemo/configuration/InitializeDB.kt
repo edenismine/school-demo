@@ -1,13 +1,7 @@
 package com.tormenteddan.schooldemo.configuration
 
-import com.tormenteddan.schooldemo.domain.Admin
-import com.tormenteddan.schooldemo.domain.Grade
-import com.tormenteddan.schooldemo.domain.Group
-import com.tormenteddan.schooldemo.domain.Teacher
-import com.tormenteddan.schooldemo.repository.GradeRepository
-import com.tormenteddan.schooldemo.repository.GroupRepository
-import com.tormenteddan.schooldemo.repository.TeacherRepository
-import com.tormenteddan.schooldemo.repository.UserRepository
+import com.tormenteddan.schooldemo.domain.*
+import com.tormenteddan.schooldemo.repository.*
 import com.tormenteddan.schooldemo.services.UserService
 import org.springframework.boot.CommandLineRunner
 import org.springframework.context.annotation.Bean
@@ -120,6 +114,17 @@ class InitializeDB {
     )
     val random = Random()
     val teachers = genTeachers()
+    val students = genStudents()
+
+    private fun genStudents(): Stack<Pair<String, String>> {
+        val result = Stack<Pair<String, String>>()
+        for (i in 1..180) {
+            val r1 = random.nextInt(fNames.size)
+            val r2 = random.nextInt(lNames.size)
+            result.push(fNames[r1] to lNames[r2])
+        }
+        return result
+    }
 
     private fun genTeachers(): Stack<Pair<String, String>> {
         val result = Stack<Pair<String, String>>()
@@ -135,6 +140,8 @@ class InitializeDB {
     fun init(gradeRepository: GradeRepository,
              groupRepository: GroupRepository,
              teacherRepository: TeacherRepository,
+             studentRepository: StudentRepository,
+             studentGradeRepository: StudentGradeRepository,
              userRepository: UserRepository,
              userService: UserService
     ): CommandLineRunner {
@@ -143,27 +150,65 @@ class InitializeDB {
             gradeRepository.deleteAll()
             groupRepository.deleteAll()
             teacherRepository.deleteAll()
+            studentRepository.deleteAll()
+            studentGradeRepository.deleteAll()
             for (i in 1..6) {
                 val grade = gradeRepository.save(Grade(i))
+                val teacherList = arrayListOf<Teacher>()
+                val studentList = arrayListOf<Student>()
+
+                // Group A
+                val groupA = groupRepository.save(Group("${i}A", grade))
                 val (name1, last1) = teachers.pop()
-                val teacher1 = teacherRepository.save(Teacher(name1, last1,
-                        groupRepository.save(Group("${i}A", grade))))
+                teacherList.add(teacherRepository.save(Teacher(name1, last1, groupA)))
+                for (j in 1..10) {
+                    val (sn, sl) = students.pop()
+                    studentList.add(studentRepository.save(Student(sn, sl, groupA)))
+                }
+
+                // Group B
+                val groupB = groupRepository.save(Group("${i}B", grade))
                 val (name2, last2) = teachers.pop()
-                val teacher2 = teacherRepository.save(Teacher(name2, last2,
-                        groupRepository.save(Group("${i}B", grade))))
+                teacherList.add(teacherRepository.save(Teacher(name2, last2, groupB)))
+                for (j in 1..10) {
+                    val (sn, sl) = students.pop()
+                    studentList.add(studentRepository.save(Student(sn, sl, groupB)))
+                }
+
+                // Group C
+                val groupC = groupRepository.save(Group("${i}C", grade))
                 val (name3, last3) = teachers.pop()
-                val teacher3 = teacherRepository.save(Teacher(name3, last3,
-                        groupRepository.save(Group("${i}C", grade))))
-                userService.createUser(teacher1)
-                userService.createUser(teacher2)
-                userService.createUser(teacher3)
-                println(teacher1)
-                println(teacher2)
-                println(teacher3)
+                teacherList.add(teacherRepository.save(Teacher(name3, last3, groupC)))
+                for (j in 1..10) {
+                    val (sn, sl) = students.pop()
+                    studentList.add(studentRepository.save(Student(sn, sl, groupC)))
+                }
+
+                teacherList.forEach {
+                    println(it)
+                    userService.createUser(it)
+                }
+                val random = Random()
+                studentList.forEach {
+                    println(it)
+                    userService.createUser(it)
+                    for (subject in Subject.values()) {
+                        for (partial in Partial.values()) {
+                            val studentGrade = StudentGrade(
+                                    student = it,
+                                    partial = partial,
+                                    subject = subject,
+                                    grade = 100 - (10 * random.nextFloat()).toInt()
+                            )
+                            studentGradeRepository.save(studentGrade)
+                        }
+                    }
+                }
             }
+
             val admin = Admin()
-            userService.createUser(admin)
             println(admin)
+            userService.createUser(admin)
         }
     }
 }
