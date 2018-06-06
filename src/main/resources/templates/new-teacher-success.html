@@ -1,0 +1,19 @@
+<html xmlns:th="http://www.thymeleaf.org" lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+>
+<head th:replace="index :: head"></head>
+<body class="body-font text-center">
+<nav th:replace="edit-grades :: nav"></nav>
+<div class="jumbotron">
+    <h1 class="display-4" th:text="|${teacher.firstName} ${teacher.lastName} was added successfully!|">Hello,
+        world!</h1>
+    <p class="lead"
+       th:text="|The new teacher will be able to log in using the following id: ${teacher.id} and his/her last name as a password|"></p>
+    <hr class="my-4">
+    <p>It's very important that you provide the new teacher with his/her credentials before attending other matters.</p>
+    <a class="btn btn-primary btn-lg"
+       href="#" th:href="@{/teachers}"
+       role="button">See all teachers</a>
+</div>
+</body>
+</html>

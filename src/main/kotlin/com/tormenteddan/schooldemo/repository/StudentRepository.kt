@@ -6,6 +6,4 @@ import org.springframework.data.mongodb.repository.MongoRepository
 
 interface StudentRepository : MongoRepository<Student, String> {
     fun findByGroupId(id: String): List<Student>
-    fun findByFirstName(firstName: String): List<Student>
-    fun findByLastName(lastName: String): List<Student>
 }

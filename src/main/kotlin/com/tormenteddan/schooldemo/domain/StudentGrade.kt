@@ -11,5 +11,5 @@ data class StudentGrade(val student: Student,
                         val grade: Int = 0,
                         val year: Int = Year.now().value) {
     @Id
-    val id = "${student.id}:${subject.name}@${partial.name}"
+    val id = "${student.id}:${subject.name}@${partial.name}$year"
 }

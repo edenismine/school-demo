@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+>
+<head th:replace="index :: head"></head>
+<body class="body-font text-center">
+<nav th:fragment="nav" class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top" id="nav-main">
+    <a class="navbar-brand text-white title-font" th:href="@{/index}">
+        <i class="material-icons d-inline-block align-top text-white"
+           style="width: 30px; height: 30px; font-size: 25px">
+            local_library
+        </i>
+        Hypothetical Elementary
+    </a>
+    <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+            <a class="nav-link" th:href="@{/index}" style="text-align: center">
+                Home <i class="material-icons text-white" style="font-size: 14px">home</i>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" th:href="@{/dashboard}" sec:authorize="isAuthenticated()" style="text-align: center">
+                Dashboard <i class="material-icons text-white" style="font-size: 14px">dashboard</i>
+            </a>
+        </li>
+    </ul>
+    <form class="form-inline float-sm-right" th:action="@{/login}" method="get" sec:authorize="!isAuthenticated()">
+        <button class="btn btn-outline-success" type="submit">Log in</button>
+    </form>
+    <form class="form-inline pull-xs-right" th:action="@{/logout}" method="post" sec:authorize="isAuthenticated()">
+        <button class="btn btn-outline-danger" type="submit">Log out</button>
+    </form>
+</nav>
+<!--/*@thymesVar id="partial" type="com.tormenteddan.schooldemo.domain.Partial"*/-->
+<!--/*@thymesVar id="student" type="com.tormenteddan.schooldemo.domain.Student"*/-->
+<!--/*@thymesVar id="form" type="com.tormenteddan.schooldemo.domain.GradingForm"*/-->
+<!--/*@thymesVar id="grades" type="java.util.List<com.tormenteddan.schooldemo.domain.StudentGrade>"*/-->
+<div class="container" id="table-container">
+    <h3 class="text-center"
+        th:text="'Grading ' +${student.firstName + ' ' + student.lastName + ' (' + student.id + ') ' + partial.toString()}">
+        Grading student 12345678
+    </h3>
+    <div class="btn-group" role="group" style="padding: 10px">
+        <div class="btn-group" role="group">
+            <button id="btnGroupPeriods" type="button" class="btn btn-success dropdown-toggle"
+                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Partials
+            </button>
+            <div class="dropdown-menu" aria-labelledby="btnGroupPeriods">
+                <a th:each="p : ${@partialService.findAll()}"
+                   th:text="${p.toString()}"
+                   th:href="@{'?partial=' + ${p.ordinal()}}"
+                   class="dropdown-item small"
+                >Partial</a>
+            </div>
+        </div>
+        <a th:href="@{'/groups/' + ${student.group.id} + '/students'}" class="btn btn-info">Go back</a>
+    </div>
+    <form action="#" th:action="@{|/groups/${student.group.id}/students/${student.id}|}" th:object="${form}"
+          method="post">
+        <input type="hidden" th:name="${_csrf.parameterName}" th:id="${_csrf.parameterName}"
+               th:value="${_csrf.token}">
+        <input type="hidden" name="partial" id="partial"
+               th:value="${partial.ordinal()}">
+        <input type="hidden" name="student" id="student"
+               th:value="${student.id}">
+        <div th:each="grade : ${grades}" class="form-group row offset-sm-1">
+            <label class="col-sm-4 col-form-label text-right"
+                   th:text="${@subjectService.getName(grade.subject)}">Spanish</label>
+            <div class="col-sm-4">
+                <input th:id="${@subjectService.getId(grade.subject)}"
+                       th:name="${@subjectService.getId(grade.subject)}"
+                       th:placeholder="${grade.grade}"
+                       type="number"
+                       class="form-control"
+                       max="100"
+                       min="0"
+                       required
+                       title="grade">
+            </div>
+        </div>
+        <button type="submit" class="btn btn-danger col-sm-2">Save</button>
+    </form>
+</div>
+</body>
+</html>

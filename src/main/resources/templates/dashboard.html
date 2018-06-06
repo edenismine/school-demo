@@ -1,11 +1,10 @@
 <!DOCTYPE html>
-<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en"
       xmlns="http://www.w3.org/1999/xhtml"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
 >
 <head th:replace="index :: head"></head>
-<body class="body-font">
+<body class="body-font text-center">
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top" id="nav-main">
     <a class="navbar-brand text-white title-font" th:href="@{/index}">
         <i class="material-icons d-inline-block align-top text-white"
@@ -17,12 +16,12 @@
     <ul class="navbar-nav mr-auto">
         <li class="nav-item">
             <a class="nav-link" th:href="@{/index}" style="text-align: center">
-                Home  <i class="material-icons text-white" style="font-size: 14px">home</i>
+                Home <i class="material-icons text-white" style="font-size: 14px">home</i>
             </a>
         </li>
         <li class="nav-item active">
             <a class="nav-link" th:href="@{/dashboard}" sec:authorize="isAuthenticated()" style="text-align: center">
-                Dashboard  <i class="material-icons text-white" style="font-size: 14px">dashboard</i>
+                Dashboard <i class="material-icons text-white" style="font-size: 14px">dashboard</i>
             </a>
         </li>
     </ul>
@@ -33,29 +32,183 @@
         <button class="btn btn-outline-danger" type="submit">Log out</button>
     </form>
 </nav>
+<!--/*@thymesVar id="group" type="com.tormenteddan.schooldemo.domain.Group"*/-->
 <div>
-    <!--Consultar lista de alumnos por grupo-->
-    <!--Agregar profesor-->
     <!--Consultar lista de profesores-->
     <!--Ligar profesor con un grupo-->
     <!--Graduar alumno-->
     <!--Ascender de grado a un alumno-->
-    <!--Inscribir Alumno-->
     <!--Dar de baja Alumno-->
-    <div sec:authorize="hasAuthority('ADMIN')" id="studentsByGroupId">
-        <form th:action="@{/students}"
-              method="post">
-            <label>
-                List the Students enrolled in a group
-                <input type="text" name="groupId" required pattern="[1-6][ABC]">
-            </label>
-            <input type="submit" value="Fetch" >
-        </form>
+    <div id="admin-dashboard" sec:authorize="hasAuthority('ADMIN')">
+        <div style="padding: 10px;">
+            <h5>Student grades</h5>
+            <div class="btn-group btn-group-sm" role="group">
+                <div class="btn-group btn-group-sm" role="group">
+                    <button id="btnGroupDropAdmin" type="button" class="btn btn-secondary dropdown-toggle"
+                            data-toggle="dropdown">
+                        Groups
+                    </button>
+                    <div class="dropdown-menu">
+                        <a th:each="g : ${@groupService.findAll()}"
+                           th:text="${g.id}"
+                           th:href="@{'/groups/' + ${g.id} + '/students'}"
+                           class="dropdown-item small"
+                        >GroupID</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div style="padding: 10px;">
+            <h5>Student information</h5>
+            <div class="btn-toolbar justify-content-center">
+                <form class="input-group input-group-sm" method="get">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text" id="studentIDlabel">Student</div>
+                    </div>
+                    <input type="text"
+                           class="form-control"
+                           name="studentId"
+                           id="studentId"
+                           placeholder="12345678"
+                           pattern="\d{8}"
+                           required>
+                    <input type="submit"
+                           class="form-control btn btn-info"
+                           value="Edit student details">
+                </form>
+                <div class="btn-group btn-group-sm pl-2" role="group">
+                    <a role="button" class="btn btn-outline-dark" th:href="@{/students}">Student list</a>
+                    <a role="button" class="btn btn-outline-dark" th:href="@{/students/new}">Enroll student</a>
+                </div>
+            </div>
+        </div>
+        <div style="padding: 10px;">
+            <h5>Teacher information</h5>
+            <div class="btn-toolbar justify-content-center">
+                <form class="input-group input-group-sm" method="get">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text" id="teacherIDlabel">Teacher</div>
+                    </div>
+                    <input type="text"
+                           class="form-control"
+                           name="teacherId"
+                           id="teacherId"
+                           placeholder="12345678"
+                           pattern="\d{8}"
+                           required>
+                    <input type="submit"
+                           class="form-control btn btn-info"
+                           value="Edit teacher details">
+                </form>
+                <div class="btn-group btn-group-sm pl-2" role="group">
+                    <a role="button" class="btn btn-outline-dark" th:href="@{/teachers}">Teacher list</a>
+                    <a role="button" class="btn btn-outline-dark" th:href="@{/teachers/new}">Add teacher</a>
+                </div>
+            </div>
+        </div>
     </div>
-    <div sec:authorize="hasAuthority('TEACHER')" id="getMyStudents">
-        <a th:href="@{'/groups/'+ ${group} +'/students'}">
-            My Students
-        </a>
+    <div id="teacher-dashboard" class="h-100 row align-items-center justify-content-center"
+         sec:authorize="hasAuthority('TEACHER')">
+        <!--/*@thymesVar id="user" type="com.tormenteddan.schooldemo.domain.Teacher"*/-->
+        <div class="text-center" style="padding: 10px;">
+            <h3>Welcome!</h3>
+
+            <a th:href="@{'/groups/' + ${group} + '/students'}"
+               class="btn btn-primary btn-lg">Grade Students</a>
+        </div>
+    </div>
+    <div id="student-dashboard" class="container" sec:authorize="hasAuthority('STUDENT')">
+        <!--/*@thymesVar id="user" type="com.tormenteddan.schooldemo.domain.Student"*/-->
+        <!--/*@thymesVar id="periods" type="java.util.List<kotlin.Pair<kotlin.Int, com.tormenteddan.schooldemo.domain .Partial>>"*/-->
+        <!--/*@thymesVar id="year" type="kotlin.Int"*/-->
+        <!--/*@thymesVar id="years" type="java.util.List<kotlin.Int>"*/-->
+        <div style="padding: 10px;">
+            <h5>Welcome!</h5>
+            <div th:text="|Your accumulated average is ${@studentGradeService.accumulatedAverage(user.id)}|"></div>
+            <div class="btn-group" role="group" style="padding: 10px">
+                <div class="btn-group" role="group">
+                    <button id="btnGroupPeriods" type="button" class="btn btn-success dropdown-toggle"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Partials
+                    </button>
+                    <div class="dropdown-menu">
+                        <a th:each="period : ${periods}"
+                           th:text="|${period.second.toString()} ${period.first}|"
+                           th:href="@{'?partial=' + ${period.second.ordinal()} + '&year=' + ${period.first}}"
+                           class="dropdown-item small"
+                        >Partial</a>
+                    </div>
+                </div>
+                <div class="btn-group" role="group">
+                    <button id="btnGroupYears" type="button" class="btn btn-success dropdown-toggle"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Years
+                    </button>
+                    <div class="dropdown-menu">
+                        <a th:each="year : ${years}"
+                           th:text="${year}"
+                           th:href="@{'?year=' + ${year}}"
+                           class="dropdown-item small"
+                        >Partial</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <table class="table" th:if="${partial != null}">
+            <!--/*@thymesVar id="partial" type="com.tormenteddan.schooldemo.domain.Partial"*/-->
+            <thead>
+            <tr>
+                <th scope="col">Student ID</th>
+                <th scope="col">Spanish</th>
+                <th scope="col">Math</th>
+                <th scope="col">Nat. Science</th>
+                <th scope="col">Social Science</th>
+                <th scope="col">Physical Education</th>
+                <th scope="col">English</th>
+                <th scope="col">Average</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <th scope="row" th:text="${user.id}"></th>
+                <td th:each="grade : ${@studentGradeService.findByStudentIdAndPartialAndYear(user.id, partial, year)}"
+                    th:text="${grade.grade}"></td>
+                <td class="text-success"
+                    th:text="${@studentGradeService.partialAverage(user.id, partial, year)}"></td>
+            </tr>
+            </tbody>
+        </table>
+        <div class="container" th:if="${partial == null}">
+            <div class="container text-center" th:text="|Average grade for ${year} : ${@studentGradeService.yearAverage(user.id, year)}|">
+            </div>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col">Student ID</th>
+                    <th scope="col">Period</th>
+                    <th scope="col">Spanish</th>
+                    <th scope="col">Math</th>
+                    <th scope="col">Nat. Science</th>
+                    <th scope="col">Social Science</th>
+                    <th scope="col">Physical Education</th>
+                    <th scope="col">English</th>
+                    <th scope="col">Average</th>
+                </tr>
+                </thead>
+                <tbody>
+                <th:block th:each="partial : ${@partialService.findAll()}">
+                    <tr>
+                        <th scope="row" th:text="${user.id}"></th>
+                        <td th:text="|${partial.toString()} ${year}|"></td>
+                        <td th:each="grade : ${@studentGradeService.findByStudentIdAndPartialAndYear(user.id, partial, year)}"
+                            th:text="${grade.grade}"></td>
+                        <td class="text-success"
+                            th:text="${@studentGradeService.partialAverage(user.id, partial, year)}"></td>
+                    </tr>
+                </th:block>
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
 </body>

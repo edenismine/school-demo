@@ -185,12 +185,10 @@ class InitializeDB {
                 }
 
                 teacherList.forEach {
-                    println(it)
                     userService.createUser(it)
                 }
                 val random = Random()
                 studentList.forEach {
-                    println(it)
                     userService.createUser(it)
                     for (subject in Subject.values()) {
                         for (partial in Partial.values()) {
@@ -207,7 +205,6 @@ class InitializeDB {
             }
 
             val admin = Admin()
-            println(admin)
             userService.createUser(admin)
         }
     }

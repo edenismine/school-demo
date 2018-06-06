@@ -4,6 +4,7 @@ import com.tormenteddan.schooldemo.services.UserIdService
 import org.springframework.data.annotation.Id
 import org.springframework.data.mongodb.core.mapping.Document
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
+import javax.validation.constraints.NotEmpty
 
 sealed class AbstractUser
 
@@ -40,3 +41,7 @@ data class User(
         }
     }
 }
+
+data class UserForm(@NotEmpty val firstName: String = "",
+                       @NotEmpty val lastName: String = "",
+                       @NotEmpty val groupId: String = "")
