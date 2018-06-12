@@ -5,7 +5,7 @@ School system demo app that uses Bootiful Kotlin.
 
 In order to build and run the project there a few things that need to be done:
 
-1. Install [MongoDB](https://www.mongodb.com/download-center?jmp=nav#community).
+1. Install [MongoDB](https://www.mongodb.com/download-center?jmp=nav#community). If you're using **ubuntu** you can follow [these instructions](https://docs.mongodb.com/master/tutorial/install-mongodb-on-ubuntu/).
 2. Configure the `MONGODB_URI` system variable and set it to your local mongo server's URI, an example is shown below.
 
 ```sh
